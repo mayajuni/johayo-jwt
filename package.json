@@ -1,7 +1,7 @@
 {
-  "name": "johayoJwt",
-  "version": "0.0.0",
-  "description": "express에서 좀더 편하게 쓸수 있게 만든 JWT 미들웨어 입니다.",
+  "name": "johayo-jwt",
+  "version": "0.0.2",
+  "description": "JWT authentication middleware.",
   "main": "./index.js",
   "keywords": [
     "auth",
@@ -16,7 +16,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/mayajuni/johayoJwt"
+    "url": "https://github.com/mayajuni/johayo-jwt"
   },
   "author": {
     "name": "Dongjun Kwon",
@@ -34,6 +34,7 @@
     "jsonwebtoken": "^5.0.4"
   },
   "engines": {
-    "node": ">= 0.4.0"
-  }
+    "node": ">= 0.10.0"
+  },
+  "readme": "README.md"
 }
