@@ -57,13 +57,13 @@ jwt.verify = function(req, res, next){
             if (/^Bearer$/i.test(scheme)) {
                 token = credentials;
             } else {
-                return err("Format is Authorization: Bearer [token]");
+                return err("Format is Authorization: Bearer 'token'");
             }
         } else {
-            return err("Format is Authorization: Bearer [token]");
+            return err("Format is Authorization: Bearer 'token'");
         }
     }else {
-        return err("No authorization token was found");
+        return err("req.headers.authorization was not found");
     }
 
     var decodeToken = token.split(".")[0] +"."+ baseDecode(token.split(".")[1]) +"."+ token.split(".")[2];
