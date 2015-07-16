@@ -1,0 +1,24 @@
+{
+  "name": "johayoJwt",
+  "version": "0.0.0",
+  "description": "express에서 좀더 편하게 쓸수 있게 만든 JWT 미들웨어 입니다.",
+  "keywords": [
+    "auth",
+    "authentication",
+    "authz",
+    "authorization",
+    "jwt",
+    "token",
+    "express",
+    "korea",
+    "mayajuni"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/auth0/express-jwt.git"
+  },
+  "dependencies": {
+    "crypto": "0.0.3",
+    "jsonwebtoken": "^5.0.4"
+  }
+}
