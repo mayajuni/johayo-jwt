@@ -12,8 +12,8 @@ $ npm install johayo-jwt
 ##사용
 제가 만든 jwt는 한번더 암호화를 진행하여 보안에 조금 신경 쓴 타입입니다. 그리고 만료시간을 두어 좀더 효과적으로 사용 가능하게 하였습니다. 복호화한 후 정보들은 설정을 따로 하지 않으면 =='req.user'==에 저장됩니다.
 
-1. 설정
-	```javascript
+####설정
+```javascript
     var johayoJwt = require("johayo-jwt");
 
     app.use(johayoJwt({
@@ -28,7 +28,7 @@ $ npm install johayo-jwt
         /* 복호화 한후 정보 저장위치(디폴트: req.user) */
         userProperty: "user"
     }))
-	```
+```
 	
 2. 복호화
 	```javascript
