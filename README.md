@@ -41,8 +41,8 @@ johayoJwt.encode(data);
 
 ####4. 에러
 에러는 전부 throw로 처리 되며 복호화 시 error status는 401로 셋팅 됩니다. 에러 메세지는 jsonwebtoken의 에러 메시지를 참고 하시면 됩니다. 그외 에러메세지는 아래와 같습니다.
-	- Format is Authorization: Bearer 'token'
-	- req.headers.authorization was not found
+- Format is Authorization: Bearer 'token'
+- req.headers.authorization was not found
 
 ####5. 기존 jsonwebtoken 다른점
 자주 사용하는 express에서 사용하기 편하게 만들었으며, 만료시간을 필수로 놓게 해놨습니다. 그리고 jsonwebtoken를 이용한 암호화 한 것을 한번더 암호화 하는 방식을 채택했습니다. jwt 전체를 암호화 하지는 않고 jwt에서 base64로 암호화한 claim json부분을 한번 더 aes 256 cbc 암호화 알고리즘으로 암호화 하였습니다.
