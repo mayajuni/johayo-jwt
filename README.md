@@ -44,6 +44,6 @@ $ npm install johayo-jwt
 	- Format is Authorization: Bearer 'token'
 	- req.headers.authorization was not found
 
-5. 기존 jsonwebtoken 다른점.
+5. 기존 jsonwebtoken 다른점
 자주 사용하는 express에서 사용하기 편하게 만들었으며, 만료시간을 필수로 놓게 해놨습니다. 그리고 jsonwebtoken를 이용한 암호화 한 것을 한번더 암호화 하는 방식을 채택했습니다. jwt 전체를 암호화 하지는 않고 jwt에서 base64로 암호화한 claim json부분을 한번 더 aes 256 cbc 암호화 알고리즘으로 암호화 하였습니다.
 
