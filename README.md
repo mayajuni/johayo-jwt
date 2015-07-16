@@ -1,49 +1,49 @@
 #Johayo JWT
 
-##¼³¸í
- ±âÁ¸ JWT ¹Ìµé¿þ¾î¸¦ »ç¿ëÇÏ¿©, express¿¡¼­ »ç¿ëÇÏ±â ÆíÇÏ°Ô ¸¸µé¾ú½À´Ï´Ù.
-JWT¿¡ ´ëÇÑ ¼³¸íÀº <a href='http://jwt.io' target='_black'>Go to jwt.io</a>¿¡¼­ È®ÀÎÇØº¸½Ã¸é µË´Ï´Ù. 
+##ì„¤ëª…
+ ê¸°ì¡´ JWT ë¯¸ë“¤ì›¨ì–´ë¥¼ ì‚¬ìš©í•˜ì—¬, expressì—ì„œ ì‚¬ìš©í•˜ê¸° íŽ¸í•˜ê²Œ ë§Œë“¤ì—ˆìŠµë‹ˆë‹¤.
+JWTì— ëŒ€í•œ ì„¤ëª…ì€ <a href='http://jwt.io' target='_black'>Go to jwt.io</a>ì—ì„œ í™•ì¸í•´ë³´ì‹œë©´ ë©ë‹ˆë‹¤. 
 
-##¼³Ä¡
+##ì„¤ì¹˜
 ```javascript
 $ npm install johayo-jwt
 ```
 
-##»ç¿ë
-Á¦°¡ ¸¸µç jwt´Â ÇÑ¹ø´õ ¾ÏÈ£È­¸¦ ÁøÇàÇÏ¿© º¸¾È¿¡ Á¶±Ý ½Å°æ ¾´ Å¸ÀÔÀÔ´Ï´Ù. ±×¸®°í ¸¸·á½Ã°£À» µÎ¾î Á»´õ È¿°úÀûÀ¸·Î »ç¿ë °¡´ÉÇÏ°Ô ÇÏ¿´½À´Ï´Ù. º¹È£È­ÇÑ ÈÄ Á¤º¸µéÀº ¼³Á¤À» µû·Î ÇÏÁö ¾ÊÀ¸¸é =='req.user'==¿¡ ÀúÀåµË´Ï´Ù.
+##ì‚¬ìš©
+ì œê°€ ë§Œë“  jwtëŠ” í•œë²ˆë” ì•”í˜¸í™”ë¥¼ ì§„í–‰í•˜ì—¬ ë³´ì•ˆì— ì¡°ê¸ˆ ì‹ ê²½ ì“´ íƒ€ìž…ìž…ë‹ˆë‹¤. ê·¸ë¦¬ê³  ë§Œë£Œì‹œê°„ì„ ë‘ì–´ ì¢€ë” íš¨ê³¼ì ìœ¼ë¡œ ì‚¬ìš© ê°€ëŠ¥í•˜ê²Œ í•˜ì˜€ìŠµë‹ˆë‹¤. ë³µí˜¸í™”í•œ í›„ ì •ë³´ë“¤ì€ ì„¤ì •ì„ ë”°ë¡œ í•˜ì§€ ì•Šìœ¼ë©´ =='req.user'==ì— ì €ìž¥ë©ë‹ˆë‹¤.
 
-1. ¼³Á¤
+1. ì„¤ì •
 	```javascript
     var johayoJwt = require("johayo-jwt");
 
     app.use(johayoJwt({
-        /* jwt ÅäÅ«ÀÇ µ¥ÀÌÅÍºÎºÐÀ» ÇÑ¹ø´õ ¾ÏÈ£È­ ÇÒ¶§ ¾²´Â ¾ÏÈ£È­Å° */
+        /* jwt í† í°ì˜ ë°ì´í„°ë¶€ë¶„ì„ í•œë²ˆë” ì•”í˜¸í™” í• ë•Œ ì“°ëŠ” ì•”í˜¸í™”í‚¤ */
         tokenSecret: "SecretKey",
-        /* jwt ÀÚÃ¼ ¾ÏÈ£È­ Å° */
+        /* jwt ìžì²´ ì•”í˜¸í™” í‚¤ */
         jwtSecret: "SecretKey",
-        /* jwt ¾ÏÈ£È­ ¾Ë°í¸®Áò(µðÆúÆ®: HS256) */
+        /* jwt ì•”í˜¸í™” ì•Œê³ ë¦¬ì¦˜(ë””í´íŠ¸: HS256) */
         algorithm: "HS256",
-        /* ¸¸·á½Ã°£ ÃÊ´ÜÀ§ (µðÆúÆ®: 3600 - 1½Ã°£) */
+        /* ë§Œë£Œì‹œê°„ ì´ˆë‹¨ìœ„ (ë””í´íŠ¸: 3600 - 1ì‹œê°„) */
         expireTime: 3600,
-        /* º¹È£È­ ÇÑÈÄ Á¤º¸ ÀúÀåÀ§Ä¡(µðÆúÆ®: req.user) */
+        /* ë³µí˜¸í™” í•œí›„ ì •ë³´ ì €ìž¥ìœ„ì¹˜(ë””í´íŠ¸: req.user) */
         userProperty: "user"
     }))
 	```
-2. º¹È£È­
+2. ë³µí˜¸í™”
 	```javascript
     app.get('/', johayoJwt.verify, function(req, res){
     	console.log(req.user);
     })
-    ```
-3. ¾ÏÈ£È­
+	 ```
+3. ì•”í˜¸í™”
 	```javascript
     johayoJwt.encode(data);
-    ```
-4. ¿¡·¯
-¿¡·¯´Â ÀüºÎ throw·Î Ã³¸® µÇ¸ç º¹È£È­ ½Ã error status´Â 401·Î ¼ÂÆÃ µË´Ï´Ù. ¿¡·¯ ¸Þ¼¼Áö´Â jsonwebtokenÀÇ ¿¡·¯ ¸Þ½ÃÁö¸¦ Âü°í ÇÏ½Ã¸é µË´Ï´Ù. ±×¿Ü ¿¡·¯¸Þ¼¼Áö´Â ¾Æ·¡¿Í °°½À´Ï´Ù.
+	```
+4. ì—ëŸ¬
+	ì—ëŸ¬ëŠ” ì „ë¶€ throwë¡œ ì²˜ë¦¬ ë˜ë©° ë³µí˜¸í™” ì‹œ error statusëŠ” 401ë¡œ ì…‹íŒ… ë©ë‹ˆë‹¤. ì—ëŸ¬ ë©”ì„¸ì§€ëŠ” jsonwebtokenì˜ ì—ëŸ¬ ë©”ì‹œì§€ë¥¼ ì°¸ê³  í•˜ì‹œë©´ ë©ë‹ˆë‹¤. ê·¸ì™¸ ì—ëŸ¬ë©”ì„¸ì§€ëŠ” ì•„ëž˜ì™€ ê°™ìŠµë‹ˆë‹¤.
 	- Format is Authorization: Bearer 'token'
 	- req.headers.authorization was not found
 
-5. ±âÁ¸ jsonwebtoken ´Ù¸¥Á¡
-ÀÚÁÖ »ç¿ëÇÏ´Â express¿¡¼­ »ç¿ëÇÏ±â ÆíÇÏ°Ô ¸¸µé¾úÀ¸¸ç, ¸¸·á½Ã°£À» ÇÊ¼ö·Î ³õ°Ô ÇØ³ù½À´Ï´Ù. ±×¸®°í jsonwebtoken¸¦ ÀÌ¿ëÇÑ ¾ÏÈ£È­ ÇÑ °ÍÀ» ÇÑ¹ø´õ ¾ÏÈ£È­ ÇÏ´Â ¹æ½ÄÀ» Ã¤ÅÃÇß½À´Ï´Ù. jwt ÀüÃ¼¸¦ ¾ÏÈ£È­ ÇÏÁö´Â ¾Ê°í jwt¿¡¼­ base64·Î ¾ÏÈ£È­ÇÑ claim jsonºÎºÐÀ» ÇÑ¹ø ´õ aes 256 cbc ¾ÏÈ£È­ ¾Ë°í¸®ÁòÀ¸·Î ¾ÏÈ£È­ ÇÏ¿´½À´Ï´Ù.
+5. ê¸°ì¡´ jsonwebtoken ë‹¤ë¥¸ì 
+	ìžì£¼ ì‚¬ìš©í•˜ëŠ” expressì—ì„œ ì‚¬ìš©í•˜ê¸° íŽ¸í•˜ê²Œ ë§Œë“¤ì—ˆìœ¼ë©°, ë§Œë£Œì‹œê°„ì„ í•„ìˆ˜ë¡œ ë†“ê²Œ í•´ë†¨ìŠµë‹ˆë‹¤. ê·¸ë¦¬ê³  jsonwebtokenë¥¼ ì´ìš©í•œ ì•”í˜¸í™” í•œ ê²ƒì„ í•œë²ˆë” ì•”í˜¸í™” í•˜ëŠ” ë°©ì‹ì„ ì±„íƒí–ˆìŠµë‹ˆë‹¤. jwt ì „ì²´ë¥¼ ì•”í˜¸í™” í•˜ì§€ëŠ” ì•Šê³  jwtì—ì„œ base64ë¡œ ì•”í˜¸í™”í•œ claim jsonë¶€ë¶„ì„ í•œë²ˆ ë” aes 256 cbc ì•”í˜¸í™” ì•Œê³ ë¦¬ì¦˜ìœ¼ë¡œ ì•”í˜¸í™” í•˜ì˜€ìŠµë‹ˆë‹¤.
 
