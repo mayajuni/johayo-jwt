@@ -36,8 +36,10 @@ app.get('/', johayoJwt.verify, function(req, res){
 
 ####3. 암호화
 ```javascript
-johayoJwt.encode(data);
+johayoJwt.encode(data, expireTime);
 ```
+expireTime 없으면 기존 설정한데로 들어간다.
+
 
 ####4. 에러
 에러는 전부 throw로 처리 되며 복호화 시 error status는 401로 셋팅 됩니다. 에러 메세지는 jsonwebtoken의 에러 메시지를 참고 하시면 됩니다. 그외 에러메세지는 아래와 같습니다.

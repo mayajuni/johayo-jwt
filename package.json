@@ -1,6 +1,6 @@
 {
   "name": "johayo-jwt",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "JWT authentication middleware.",
   "main": "./index.js",
   "keywords": [

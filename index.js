@@ -41,7 +41,10 @@ var jwt = module.exports = function(options){
 };
 
 
-jwt.encode = function(data){
+jwt.encode = function(data, expireTime){
+    if(!!expireTime){
+        jwtOptions.jsonWebTokenOptions.expiresInSeconds = expireTime;
+    }
     var jwtToken = jsonWebToken.sign(data, jwtOptions.jwtSecret, jwtOptions.jsonWebTokenOptions);
     return jwtToken.split(".")[0]+"."+baseEncode(jwtToken.split(".")[1])+"."+jwtToken.split(".")[2];
 };
