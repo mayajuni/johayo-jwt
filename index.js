@@ -1,22 +1,23 @@
 /**
- * Created by µ¿ÁØ on 2015-07-16.
+ * Created by ë™ì¤€ on 2015-07-16.
  */
 var jsonWebToken = require("jsonwebtoken");
 var crypto = require("crypto");
+var johayoError = require("./error/johayoError");
 
 /**
  *
  * @type {{tokenSecret: String, jwtSecret: String, userProperty: string, jsonWebTokenOptions: {expiresInSeconds: number, algorithm: string}}}
  */
 var jwtOptions = {
-    /* ÅäÅ« ÀÚÃ¼¸¦ ¾ÏÈ£ÇÒ Å° */
+    /* í† í° ìì²´ë¥¼ ì•”í˜¸í•  í‚¤ */
     tokenSecret: String,
-    /* jwt ¾ÏÈ£È­ Å° */
+    /* jwt ì•”í˜¸í™” í‚¤ */
     jwtSecret: String,
     userProperty: "user",
-    /* ¾ÏÈ£È­ ¾Ë°í¸®Áò */
+    /* ì•”í˜¸í™” ì•Œê³ ë¦¬ì¦˜ */
     jsonWebTokenOptions: {
-        /* ¸¸·á½Ã°£ ±âº» 1½Ã°£ */
+        /* ë§Œë£Œì‹œê°„ ê¸°ë³¸ 1ì‹œê°„ */
         expiresInSeconds: 3600,
         algorithm: "HS256"
     }
@@ -60,21 +61,19 @@ jwt.verify = function(req, res, next){
             if (/^Bearer$/i.test(scheme)) {
                 token = credentials;
             } else {
-                return err("Format is Authorization: Bearer 'token'");
+                return next(new johayoError('bad_scheme', { message: 'Format is Authorization: Bearer \'token\'' }));
             }
         } else {
-            return err("Format is Authorization: Bearer 'token'");
+            return next(new johayoError('bad_scheme', { message: 'Format is Authorization: Bearer \'token\'' }));
         }
     }else {
-        return err("req.headers.authorization was not found");
+        return next(new johayoError('not-found-authorization', { message: 'authorization was not found' }));
     }
 
     var decodeToken = token.split(".")[0] +"."+ baseDecode(token.split(".")[1]) +"."+ token.split(".")[2];
 
     jsonWebToken.verify(decodeToken, jwtOptions.jwtSecret, function(error, data){
-        if(error){
-            err(error.message);
-        }
+        if (error) return next(new johayoError('invalid_token', error));
 
         req[jwtOptions.userProperty] = data;
 
@@ -82,19 +81,12 @@ jwt.verify = function(req, res, next){
     });
 };
 
-function err(message) {
-    var error = new Error();
-    error.status = 401;
-    error.message = message;
-    throw error;
-}
-
 function baseEncode(token){
     var cipher = crypto.createCipher('aes-256-cbc', jwtOptions.tokenSecret);
 
-    /* ÄÁÅÙÃ÷¸¦ ¹ñ°í */
+    /* ì»¨í…ì¸ ë¥¼ ë±‰ê³  */
     var encipheredContent = cipher.update(token,'utf8','hex');
-    /* ÃÖÁ¾ ¾Æ¿ôÇ²À» hex ÇüÅÂ·Î ¹ñ°Ô ÇÑ´Ù*/
+    /* ìµœì¢… ì•„ì›ƒí’‹ì„ hex í˜•íƒœë¡œ ë±‰ê²Œ í•œë‹¤*/
     encipheredContent += cipher.final('hex');
     return encipheredContent;
 }
