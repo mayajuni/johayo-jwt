@@ -50,7 +50,7 @@ jwt.encode = function(data, expireTime){
     return jwtToken.split(".")[0]+"."+baseEncode(jwtToken.split(".")[1])+"."+jwtToken.split(".")[2];
 };
 
-jwt.verify = function(req, res, next){
+jwt.verify = function(req, res, next, userProperty){
     var token;
     if(req.headers && req.headers.authorization) {
         var parts = req.headers.authorization.split(" ");
@@ -75,7 +75,9 @@ jwt.verify = function(req, res, next){
     jsonWebToken.verify(decodeToken, jwtOptions.jwtSecret, function(error, data){
         if (error) return next(new johayoError('invalid_token', error));
 
-        req[jwtOptions.userProperty] = data;
+        var property = !userProperty ? jwtOptions.userProperty : userProperty;
+
+        req[property] = data;
 
         next();
     });
