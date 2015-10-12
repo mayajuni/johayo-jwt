@@ -35,7 +35,7 @@ var jwt = module.exports = function(options){
     jwtOptions.jwtSecret = options.jwtSecret;
     jwtOptions.userProperty = !options.userProperty ? jwtOptions.userProperty : options.userProperty;
     jwtOptions.jsonWebTokenOptions.algorithm = !options.algorithm ? jwtOptions.jsonWebTokenOptions.algorithm : options.algorithm;
-    jwtOptions.jsonWebTokenOptions.expiresInSeconds = !options.expireTime ? jwtOptions.jsonWebTokenOptions.expiresInSeconds : options.expireTime;
+    jwtOptions.jsonWebTokenOptions.expiresIn = !options.expireTime ? jwtOptions.jsonWebTokenOptions.expiresInSeconds : options.expireTime;
     return function (req, res, next){
         next();
     };
@@ -44,7 +44,7 @@ var jwt = module.exports = function(options){
 
 jwt.encode = function(data, expireTime){
     if(!!expireTime){
-        jwtOptions.jsonWebTokenOptions.expiresInSeconds = expireTime;
+        jwtOptions.jsonWebTokenOptions.expiresIn = expireTime;
     }
     var jwtToken = jsonWebToken.sign(data, jwtOptions.jwtSecret, jwtOptions.jsonWebTokenOptions);
     return jwtToken.split(".")[0]+"."+baseEncode(jwtToken.split(".")[1])+"."+jwtToken.split(".")[2];
