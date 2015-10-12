@@ -1,7 +1,7 @@
 /**
  * Created by 동준 on 2015-07-16.
  *
- * version : 0.0.9
+ * version : 0.1.0
  */
 var jsonWebToken = require("jsonwebtoken");
 var crypto = require("crypto");
