@@ -20,7 +20,7 @@ var jwtOptions = {
     /* 암호화 알고리즘 */
     jsonWebTokenOptions: {
         /* 만료시간 기본 1시간 */
-        expiresInSeconds: 3600,
+        expiresIn: 3600,
         algorithm: "HS256"
     }
 };
@@ -37,7 +37,7 @@ var jwt = module.exports = function(options){
     jwtOptions.jwtSecret = options.jwtSecret;
     jwtOptions.userProperty = !options.userProperty ? jwtOptions.userProperty : options.userProperty;
     jwtOptions.jsonWebTokenOptions.algorithm = !options.algorithm ? jwtOptions.jsonWebTokenOptions.algorithm : options.algorithm;
-    jwtOptions.jsonWebTokenOptions.expiresIn = !options.expireTime ? jwtOptions.jsonWebTokenOptions.expiresInSeconds : options.expireTime;
+    jwtOptions.jsonWebTokenOptions.expiresIn = !options.expireTime ? jwtOptions.jsonWebTokenOptions.expiresIn : options.expireTime;
     return function (req, res, next){
         next();
     };
