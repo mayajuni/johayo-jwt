@@ -72,18 +72,77 @@ jwt.verify = function(req, res, next, userProperty){
         return next(new johayoError('not-found-authorization', { message: 'authorization was not found' }));
     }
 
+    todoVerify(token, function(error) {
+        if (error) return next(new johayoError('invalid_token', error));
+        var property = !userProperty ? jwtOptions.userProperty : userProperty;
+        req[property] = data;
+        next();
+    })
+};
+
+/**
+ * 소캣io에서 사용
+ *
+ * @returns {Function}
+ */
+jwt.socketIoAuthorize = function() {
+    var auth = {
+        success: function(data, accept){
+            if (data.request) {
+                accept();
+            } else {
+                accept(null, true);
+            }
+        },
+        fail: function(error, data, accept){
+            if (data.request) {
+                accept(error);
+            } else {
+                accept(null, false);
+            }
+        }
+    };
+
+    return function(data, accept){
+        var token;
+        var req = data.request || data;
+
+        //get the token from query string
+        if (req._query && req._query.token) {
+            token = req._query.token;
+        }
+        else if (req.query && req.query.token) {
+            token = req.query.token;
+        }
+
+        if (!token) {
+            return auth.fail(new johayoError('not-found-authorization', { message: 'authorization was not found' }), data, accept);
+        }
+
+
+
+        todoVerify(token, function(error, info) {
+            if(error) {
+                return auth.fail(new johayoError('invalid_token', error), data, accept)
+            }
+
+            data[jwtOptions.userProperty] = info;
+            return auth.success(data, accept);
+        })
+    };
+}
+
+/**
+ * 토큰을 복호화해서 준다.
+ *
+ * @param token
+ * @param callback
+ */
+function todoVerify(token, callback) {
     var decodeToken = token.split(".")[0] +"."+ baseDecode(token.split(".")[1]) +"."+ token.split(".")[2];
 
-    jsonWebToken.verify(decodeToken, jwtOptions.jwtSecret, function(error, data){
-        if (error) return next(new johayoError('invalid_token', error));
-
-        var property = !userProperty ? jwtOptions.userProperty : userProperty;
-
-        req[property] = data;
-
-        next();
-    });
-};
+    jsonWebToken.verify(decodeToken, jwtOptions.jwtSecret, callback);
+}
 
 function baseEncode(token){
     var cipher = crypto.createCipher('aes-256-cbc', jwtOptions.tokenSecret);

@@ -7,6 +7,9 @@ JWT에 대한 설명은 <a href='http://jwt.io' target='_black'>Go to jwt.io</a>
 $ npm install johayo-jwt
 ```
 
+##업데이트
+ socketIO에서 사용하기 편하게 변경 처리.
+
 ##사용
 제가 만든 jwt는 한번더 암호화를 진행하여 보안에 조금 신경 쓴 타입입니다. 그리고 만료시간을 두어 좀더 효과적으로 사용 가능하게 하였습니다. 복호화한 후 정보들은 설정을 따로 하지 않으면 ```'req.user'```에 저장됩니다.
 
