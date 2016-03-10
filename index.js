@@ -72,7 +72,7 @@ jwt.verify = function(req, res, next, userProperty){
         return next(new johayoError('not-found-authorization', { message: 'authorization was not found' }));
     }
 
-    todoVerify(token, function(error) {
+    todoVerify(token, function(error, data) {
         if (error) return next(new johayoError('invalid_token', error));
         var property = !userProperty ? jwtOptions.userProperty : userProperty;
         req[property] = data;
