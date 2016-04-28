@@ -1,6 +1,6 @@
 {
   "name": "johayo-jwt",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "JWT authentication middleware.",
   "main": "./index.js",
   "keywords": [
@@ -20,8 +20,7 @@
   },
   "author": {
     "name": "Dongjun Kwon",
-    "email": "mayajuni10@gmail.com",
-    "url": "https://www.johayo.com/"
+    "email": "mayajuni10@gmail.com"
   },
   "licenses": [
     {
@@ -31,7 +30,7 @@
   ],
   "dependencies": {
     "crypto": "0.0.3",
-    "jsonwebtoken": "^5.7.0"
+    "jsonwebtoken": "^6.1.1"
   },
   "engines": {
     "node": ">= 0.10.0"
